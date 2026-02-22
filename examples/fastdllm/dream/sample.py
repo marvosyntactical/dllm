@@ -34,6 +34,14 @@ class SamplerConfig(dllm.pipelines.fastdllm.dream.FastdLLMDreamSamplerConfig):
     threshold: float = 0.9
     use_cache: str = "prefix"  # "none", "prefix", "dual"
     # block_size: int = 32
+    # Improvising hyperparameters (used when alg="improvising")
+    mu_start: float = 0.1
+    mu_end: float = 1.0
+    mu_schedule: str = "linear"  # "linear", "cosine", "constant"
+    J_0: float = 0.3   # Ising coupling (0 → recovers GCE)
+    lam: float = 0.9   # λ: nucleation reach decay (1.0 → no decay)
+    gamma: float = 0.5  # γ: coupling decay rate
+    ising_beta: float = 1e7  # inverse temperature (large → Viterbi)
 
 
 parser = transformers.HfArgumentParser((ScriptArguments, SamplerConfig))
